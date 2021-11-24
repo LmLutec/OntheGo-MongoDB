@@ -30,6 +30,9 @@ const FoodtrucksSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  schedule: {
+    type: Object,
+  },
   ownerId: {
     type: String,
     required: true,

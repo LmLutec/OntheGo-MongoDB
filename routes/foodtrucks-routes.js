@@ -68,4 +68,67 @@ router.put("/editfoodtruck/:id", async (req, res) => {
   }
 });
 
+// add schedule
+router.put("/schedule/:id", async (req, res) => {
+  const {
+    monStart,
+    monEnd,
+    tuesStart,
+    tuesEnd,
+    wedStart,
+    wedEnd,
+    thursStart,
+    thursEnd,
+    friStart,
+    friEnd,
+    satStart,
+    satEnd,
+    sunStart,
+    sunEnd,
+    newYearsDayStart,
+    newYearsDayEnd,
+    thanksgivingDayStart,
+    thanksgivingDayEnd,
+    christmasDayStart,
+    christmasDayEnd,
+  } = req.body;
+
+  const id = req.params.id;
+  try {
+    const schedule = await Foodtruck.findByIdAndUpdate(id, {
+      $insert: {
+        schedule: {
+          monStart,
+          monEnd,
+          tuesStart,
+          tuesEnd,
+          wedStart,
+          wedEnd,
+          thursStart,
+          thursEnd,
+          friStart,
+          friEnd,
+          satStart,
+          satEnd,
+          sunStart,
+          sunEnd,
+          newYearsDayStart,
+          newYearsDayEnd,
+          thanksgivingDayStart,
+          thanksgivingDayEnd,
+          christmasDayStart,
+          christmasDayEnd,
+        },
+      },
+    });
+
+    // add to DB
+    await district.save();
+    res.status(200).json({ district });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("server error");
+  }
+});
+
 module.exports = router;

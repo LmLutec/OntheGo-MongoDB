@@ -58,4 +58,18 @@ router.put("/editowner/:id", async (req, res) => {
   }
 });
 
+// get owner profile
+router.get("/owner/:id", async (req, res) => {
+  console.log("in route");
+
+  const { id } = req.params;
+
+  try {
+    const owner = await Owner.findById(id);
+    res.status(200).json(owner);
+  } catch (err) {
+    res.status(500).send("server error");
+  }
+});
+
 module.exports = router;
